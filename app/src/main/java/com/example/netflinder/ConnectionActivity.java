@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
@@ -29,7 +30,7 @@ public class ConnectionActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private String currentUId;
     private Boolean hasMatch = false;
-    private int i;
+    private long i, numberOfUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,40 +60,64 @@ public class ConnectionActivity extends AppCompatActivity {
             }
         });
 
+        FirebaseDatabase.getInstance().getReference().addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if (Objects.equals(snapshot.getKey(), "Users")){
+                    numberOfUsers = snapshot.getChildrenCount();
+                }
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
         mConnectUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 i = 0;
                 mConNameStr = (String) mConName.getText().toString().toLowerCase();
                 mConCodeStr = (String) mConCode.getText().toString().toLowerCase();
+
                 usersDb.child(currentUId).addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        if (snapshot.getKey().equals("Matched user")){
+                        if (snapshot.child("Matched user").getValue() != null) {
                             hasMatch = true;
                         }
                     }
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     }
+
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                     }
+
                     @Override
                     public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
-
                 usersDb.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         DatabaseReference myUserDb = usersDb.child(currentUId).child("Matched user");
                         if (snapshot.exists()
                                 && mConCodeStr.equals(Objects.requireNonNull(snapshot.getKey()).substring(0, 4).toLowerCase())
-                                && mConNameStr.equals(((String) Objects.requireNonNull(snapshot.child("Name").getValue())).toLowerCase())){
+                                && mConNameStr.equals(((String) Objects.requireNonNull(snapshot.child("Name").getValue())).toLowerCase())) {
                             if (snapshot.child("Matched user").getValue() != null
                                     || hasMatch) {
                                 Toast.makeText(ConnectionActivity.this, "One of you already has a connection", Toast.LENGTH_SHORT).show();
@@ -102,31 +127,36 @@ public class ConnectionActivity extends AppCompatActivity {
                                 DatabaseReference otherUserDb = usersDb.child(snapshot.getKey()).child("Matched user");
                                 otherUserDb.setValue(currentUId);
                                 myUserDb.setValue(snapshot.getKey());
-                                i = 1;
+                                Toast.makeText(ConnectionActivity.this, "You did it!", Toast.LENGTH_SHORT).show();
+                                hasMatch = true;
                             }
                         }
-//                        if (snapshot.exists()
-//                                && !mConCodeStr.equals(Objects.requireNonNull(snapshot.getKey()).substring(0, 4).toLowerCase())
-//                                && !mConNameStr.equals(((String) Objects.requireNonNull(snapshot.child("Name").getValue())).toLowerCase())){
-//                            Toast.makeText(ConnectionActivity.this, "User not found", Toast.LENGTH_SHORT).show();
-//                        }
+                        i++;
+                        if (i >= numberOfUsers && !hasMatch){
+                            Toast.makeText(ConnectionActivity.this, "Sorry, haven't found your soulmate :(", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
+
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        if (i == 0){
+                            Toast.makeText(ConnectionActivity.this, "Sorry, haven't found your soulmate :(", Toast.LENGTH_SHORT).show();
+                        }
                     }
+
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                     }
+
                     @Override
                     public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
-                if(i == 0) {
-                    Toast.makeText(ConnectionActivity.this, "Sorry, haven't found your soulmate :(", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
