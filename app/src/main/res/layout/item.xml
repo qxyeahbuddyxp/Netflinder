@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="40sp"
+    android:paddingRight="40sp"
+    android:paddingTop="20sp"
+    android:paddingBottom="20sp"
+    android:outlineProvider="bounds"
+    android:clipToPadding="false">
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardCornerRadius="4dp"
+        android:elevation="2dp"
+        android:id="@+id/cardView">
+
+        <FrameLayout
+            android:layout_width="265dp"
+            android:layout_height="455dp"
+            android:layout_gravity="center"
+            android:background="#ED5A5A5A">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="270dp"
+                android:layout_height="400dp"
+                android:layout_gravity="center|top" />
+
+            <TextView
+                android:id="@+id/movieTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00151515"
+                android:gravity="bottom|center"
+                android:paddingBottom="22dp"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                tools:text="Een film" />
+
+            <TextView
+                android:id="@+id/movieGenre"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00151515"
+                android:gravity="bottom|center"
+                android:paddingBottom="2dp"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                tools:text="Genre" />
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>

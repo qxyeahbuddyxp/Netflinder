@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "488907374627",
+    "firebase_url": "https://netflinder-56d17.firebaseio.com",
+    "project_id": "netflinder-56d17",
+    "storage_bucket": "netflinder-56d17.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488907374627:android:8f61a4ac60b6e909ddb196",
+        "android_client_info": {
+          "package_name": "com.example.netflinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488907374627-63c77lu9ev2hrthumu7d5khg8prumff9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.netflinder",
+            "certificate_hash": "7a516f4f0caa14d4a108e777ffac9695f9cb5684"
+          }
+        },
+        {
+          "client_id": "488907374627-oa32bgcbg8fda1p76tf4o0rjk0ktsc46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVCBwkqFkdvlsz4lNf2PUcKOdCuzsvKbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488907374627-oa32bgcbg8fda1p76tf4o0rjk0ktsc46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

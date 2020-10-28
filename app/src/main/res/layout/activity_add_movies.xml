@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#292929"
+    android:orientation="vertical"
+    android:padding="20sp"
+    tools:context=".AddMoviesActivity">
+
+    <ImageView
+        android:id="@+id/moviePoster"
+        android:layout_width="135dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="20sp"
+        android:src="@mipmap/ic_launcher" />
+
+    <EditText
+        android:id="@+id/fillMovieTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Movie Title"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/fillMovieGenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Movie Genre"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
+
+    <Button
+        android:id="@+id/addMovie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Movie" />
+
+    <Button
+        android:id="@+id/backtomain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+
+</LinearLayout>
